@@ -54,6 +54,7 @@ const MentorshipDemo = () => {
   const [showScheduleDialog, setShowScheduleDialog] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>("mentors");
   const [activeMentorship, setActiveMentorship] = useState<{
     mentor: Mentor;
     date: string;
@@ -134,6 +135,7 @@ const MentorshipDemo = () => {
     });
     
     setShowScheduleDialog(false);
+    setActiveTab("active");
     
     toast({
       title: "Mentorship Session Scheduled",
@@ -158,7 +160,7 @@ const MentorshipDemo = () => {
     <div className="glass-card rounded-xl p-8 shadow-lg">
       <h3 className="text-xl font-bold mb-6">Mentorship Program Demo</h3>
       
-      <Tabs defaultValue="mentors">
+      <Tabs defaultValue="mentors" value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="mb-6">
           <TabsTrigger value="mentors">Find Mentors</TabsTrigger>
           <TabsTrigger value="active">Active Mentorship</TabsTrigger>
@@ -290,7 +292,7 @@ const MentorshipDemo = () => {
               <User className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <h4 className="text-lg font-semibold mb-2">No Active Mentorship</h4>
               <p className="text-gray-500 mb-6">You don't have any scheduled mentorship sessions yet.</p>
-              <Button onClick={() => document.querySelector('[data-value="mentors"]')?.click()}>
+              <Button onClick={() => setActiveTab("mentors")}>
                 Find a Mentor
               </Button>
             </div>
