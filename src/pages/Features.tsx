@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   TrendingUp, 
@@ -15,12 +15,31 @@ import {
   ScrollText,
   Sparkles
 } from 'lucide-react';
+import CreditEvaluationDemo from '@/components/feature-demos/CreditEvaluationDemo';
+import FinancialLiteracyDemo from '@/components/feature-demos/FinancialLiteracyDemo';
+import MentorshipDemo from '@/components/feature-demos/MentorshipDemo';
+import MarketLinkageDemo from '@/components/feature-demos/MarketLinkageDemo';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Features = () => {
+  const isMobile = useIsMobile();
+  const [activeDemo, setActiveDemo] = useState<string | null>(null);
+  
   // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const scrollToDemo = (demoId: string) => {
+    setActiveDemo(demoId);
+    const element = document.getElementById(demoId);
+    if (element) {
+      // Add some offset to account for fixed header
+      const yOffset = -100; 
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({top: y, behavior: 'smooth'});
+    }
+  };
 
   return (
     <div className="min-h-screen pt-20">
@@ -45,10 +64,59 @@ const Features = () => {
         </div>
       </section>
 
+      {/* Quick Feature Navigation */}
+      {!isMobile && (
+        <section className="py-10 bg-white border-b">
+          <div className="container-custom">
+            <div className="flex justify-center space-x-8">
+              <button 
+                onClick={() => scrollToDemo('credit-evaluation')}
+                className={`flex flex-col items-center px-4 py-2 rounded-lg transition-all ${
+                  activeDemo === 'credit-evaluation' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-50'
+                }`}
+              >
+                <TrendingUp size={24} className="mb-2" />
+                <span className="text-sm font-medium">Credit Evaluation</span>
+              </button>
+              
+              <button 
+                onClick={() => scrollToDemo('financial-literacy')}
+                className={`flex flex-col items-center px-4 py-2 rounded-lg transition-all ${
+                  activeDemo === 'financial-literacy' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-50'
+                }`}
+              >
+                <GraduationCap size={24} className="mb-2" />
+                <span className="text-sm font-medium">Financial Literacy</span>
+              </button>
+              
+              <button 
+                onClick={() => scrollToDemo('mentorship')}
+                className={`flex flex-col items-center px-4 py-2 rounded-lg transition-all ${
+                  activeDemo === 'mentorship' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-50'
+                }`}
+              >
+                <Users size={24} className="mb-2" />
+                <span className="text-sm font-medium">Mentorship</span>
+              </button>
+              
+              <button 
+                onClick={() => scrollToDemo('market-linkage')}
+                className={`flex flex-col items-center px-4 py-2 rounded-lg transition-all ${
+                  activeDemo === 'market-linkage' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-50'
+                }`}
+              >
+                <LineChart size={24} className="mb-2" />
+                <span className="text-sm font-medium">Market Linkage</span>
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* AI Credit Evaluation */}
-      <section className="section-padding bg-white">
+      <section id="credit-evaluation" className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-12">
             <div className="space-y-6">
               <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-medium text-sm mb-2">
                 Feature 01
@@ -83,10 +151,6 @@ const Features = () => {
                   <span className="text-gray-600">Connections to funding sources aligned with your business model</span>
                 </li>
               </ul>
-              <Link to="/contact" className="btn-primary inline-flex items-center space-x-2">
-                <span>Get Started</span>
-                <ArrowRight size={16} />
-              </Link>
             </div>
             
             <div className="relative">
@@ -100,13 +164,17 @@ const Features = () => {
               </div>
             </div>
           </div>
+          
+          <div className="mt-8">
+            <CreditEvaluationDemo />
+          </div>
         </div>
       </section>
 
       {/* Financial Literacy */}
-      <section className="section-padding bg-gray-50">
+      <section id="financial-literacy" className="section-padding bg-gray-50">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-12">
             <div className="order-2 md:order-1 relative">
               <div className="bg-accent/10 rounded-tl-[100px] rounded-br-[100px] h-full w-full absolute -top-6 -left-6 z-0"></div>
               <div className="glass-card rounded-xl overflow-hidden relative z-10">
@@ -152,19 +220,19 @@ const Features = () => {
                   <span className="text-gray-600">Track your progress and implement learnings in real-time</span>
                 </li>
               </ul>
-              <Link to="/contact" className="btn-primary inline-flex items-center space-x-2">
-                <span>Start Learning</span>
-                <ArrowRight size={16} />
-              </Link>
             </div>
+          </div>
+          
+          <div className="mt-8">
+            <FinancialLiteracyDemo />
           </div>
         </div>
       </section>
 
       {/* Mentorship */}
-      <section className="section-padding bg-white">
+      <section id="mentorship" className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-12">
             <div className="space-y-6">
               <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-medium text-sm mb-2">
                 Feature 03
@@ -199,10 +267,6 @@ const Features = () => {
                   <span className="text-gray-600">Tools to track mentorship goals and measure progress</span>
                 </li>
               </ul>
-              <Link to="/contact" className="btn-primary inline-flex items-center space-x-2">
-                <span>Find a Mentor</span>
-                <ArrowRight size={16} />
-              </Link>
             </div>
             
             <div className="relative">
@@ -216,13 +280,17 @@ const Features = () => {
               </div>
             </div>
           </div>
+          
+          <div className="mt-8">
+            <MentorshipDemo />
+          </div>
         </div>
       </section>
 
       {/* Market Linkages */}
-      <section className="section-padding bg-gray-50">
+      <section id="market-linkage" className="section-padding bg-gray-50">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-12">
             <div className="order-2 md:order-1 relative">
               <div className="bg-primary/10 rounded-tl-[100px] rounded-br-[100px] h-full w-full absolute -top-6 -left-6 z-0"></div>
               <div className="glass-card rounded-xl overflow-hidden relative z-10">
@@ -268,11 +336,11 @@ const Features = () => {
                   <span className="text-gray-600">Supply chain and logistics optimization for your business</span>
                 </li>
               </ul>
-              <Link to="/contact" className="btn-primary inline-flex items-center space-x-2">
-                <span>Explore Markets</span>
-                <ArrowRight size={16} />
-              </Link>
             </div>
+          </div>
+          
+          <div className="mt-8">
+            <MarketLinkageDemo />
           </div>
         </div>
       </section>
