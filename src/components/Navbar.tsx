@@ -1,13 +1,23 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, User, LogOut } from "lucide-react";
+import { useAuth } from '@/contexts/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +41,11 @@ const Navbar = () => {
     { name: 'Features', path: '/features' },
     { name: 'Contact', path: '/contact' },
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -59,16 +74,51 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
+            
+            {user && (
+              <Link 
+                to="/dashboard"
+                className={`font-montserrat font-medium transition-all-300 hover:text-primary ${isActive('/dashboard') ? 'text-primary' : 'text-gray-700'}`}
+              >
+                Dashboard
+              </Link>
+            )}
           </div>
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" className="font-montserrat">
-              Login
-            </Button>
-            <Button className="bg-accent hover:bg-accent-dark text-white font-montserrat">
-              Get Started
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="font-montserrat flex items-center">
+                    <User className="h-4 w-4 mr-2" />
+                    My Account
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                    Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut} className="text-red-600">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button variant="ghost" className="font-montserrat" onClick={() => navigate('/auth')}>
+                  Login
+                </Button>
+                <Button className="bg-accent hover:bg-accent-dark text-white font-montserrat" onClick={() => navigate('/auth?tab=signup')}>
+                  Get Started
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -98,13 +148,66 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
+          
+          {user && (
+            <Link
+              to="/dashboard"
+              className={`block py-3 font-montserrat font-medium ${isActive('/dashboard') ? 'text-primary' : 'text-gray-700'}`}
+              onClick={closeMenu}
+            >
+              Dashboard
+            </Link>
+          )}
+          
           <div className="pt-4 space-y-3">
-            <Button variant="ghost" className="w-full justify-start font-montserrat">
-              Login
-            </Button>
-            <Button className="w-full bg-accent hover:bg-accent-dark text-white justify-start font-montserrat">
-              Get Started
-            </Button>
+            {user ? (
+              <>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start font-montserrat"
+                  onClick={() => {
+                    navigate('/profile');
+                    closeMenu();
+                  }}
+                >
+                  <User className="h-4 w-4 mr-2" />
+                  My Profile
+                </Button>
+                <Button 
+                  variant="destructive" 
+                  className="w-full justify-start font-montserrat"
+                  onClick={() => {
+                    handleSignOut();
+                    closeMenu();
+                  }}
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start font-montserrat"
+                  onClick={() => {
+                    navigate('/auth');
+                    closeMenu();
+                  }}
+                >
+                  Login
+                </Button>
+                <Button 
+                  className="w-full bg-accent hover:bg-accent-dark text-white justify-start font-montserrat"
+                  onClick={() => {
+                    navigate('/auth?tab=signup');
+                    closeMenu();
+                  }}
+                >
+                  Get Started
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
