@@ -20,6 +20,7 @@ import MarketLinkages from "./pages/features/MarketLinkages";
 import Auth from "./pages/auth/Auth";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Profile from "./pages/dashboard/Profile";
+import Analytics from "./pages/dashboard/Analytics";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -61,6 +62,11 @@ const App = () => {
                     <Route path="/profile" element={
                       <ProtectedRoute>
                         <Profile />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="/analytics" element={
+                      <ProtectedRoute>
+                        <Analytics />
                       </ProtectedRoute>
                     } />
                     

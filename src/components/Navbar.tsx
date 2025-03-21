@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, User, LogOut } from "lucide-react";
+import { Menu, X, ChevronDown, User, LogOut, BarChart3 } from "lucide-react";
 import { useAuth } from '@/contexts/AuthContext';
 import {
   DropdownMenu,
@@ -76,12 +76,20 @@ const Navbar = () => {
             ))}
             
             {user && (
-              <Link 
-                to="/dashboard"
-                className={`font-montserrat font-medium transition-all-300 hover:text-primary ${isActive('/dashboard') ? 'text-primary' : 'text-gray-700'}`}
-              >
-                Dashboard
-              </Link>
+              <>
+                <Link 
+                  to="/dashboard"
+                  className={`font-montserrat font-medium transition-all-300 hover:text-primary ${isActive('/dashboard') ? 'text-primary' : 'text-gray-700'}`}
+                >
+                  Dashboard
+                </Link>
+                <Link 
+                  to="/analytics"
+                  className={`font-montserrat font-medium transition-all-300 hover:text-primary ${isActive('/analytics') ? 'text-primary' : 'text-gray-700'}`}
+                >
+                  Analytics
+                </Link>
+              </>
             )}
           </div>
 
@@ -98,6 +106,10 @@ const Navbar = () => {
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem onClick={() => navigate('/dashboard')}>
                     Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/analytics')}>
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    Analytics
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/profile')}>
                     Profile
@@ -150,13 +162,22 @@ const Navbar = () => {
           ))}
           
           {user && (
-            <Link
-              to="/dashboard"
-              className={`block py-3 font-montserrat font-medium ${isActive('/dashboard') ? 'text-primary' : 'text-gray-700'}`}
-              onClick={closeMenu}
-            >
-              Dashboard
-            </Link>
+            <>
+              <Link
+                to="/dashboard"
+                className={`block py-3 font-montserrat font-medium ${isActive('/dashboard') ? 'text-primary' : 'text-gray-700'}`}
+                onClick={closeMenu}
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/analytics"
+                className={`block py-3 font-montserrat font-medium ${isActive('/analytics') ? 'text-primary' : 'text-gray-700'}`}
+                onClick={closeMenu}
+              >
+                Analytics
+              </Link>
+            </>
           )}
           
           <div className="pt-4 space-y-3">
