@@ -1,69 +1,105 @@
-# Welcome to your Lovable project
+# 🎯 **NariNiti: Empowering Women Entrepreneurs through AI-Driven Financial Inclusion and Literacy**
 
-## Project info
+---
 
-**URL**: https://lovable.dev/projects/ca8cc97b-a795-4ff1-aa7b-47174c3bd54d
+## 📚 **Project Overview**
 
-## How can I edit this code?
+**NariNiti** is a comprehensive AI-powered platform designed to **empower women entrepreneurs** by addressing critical challenges in:
 
-There are several ways of editing your application.
+- ✅ **Access to Finance:** AI-powered credit scoring using **XGBoost with SHAP** ensures fair evaluation and enhanced loan approvals.  
+- ✅ **Financial Literacy:** A personalized recommender system using **SVD Collaborative Filtering** tailors learning paths based on user profiles.  
+- ✅ **Mentorship Networks:** AI-driven mentor matching using **KNN algorithms** connects entrepreneurs with industry experts for personalized guidance.  
+- ✅ **Market Linkages:** A procurement and e-commerce hub using **Collaborative Filtering** improves MSMEs’ revenue by integrating them into supply chains.  
+- ✅ **Fraud Detection (Future Scope):** AI-based anomaly detection flags high-risk loan applications to minimize default risks.
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ca8cc97b-a795-4ff1-aa7b-47174c3bd54d) and start prompting.
+## 🔥 **Core Features**
 
-Changes made via Lovable will be committed automatically to this repo.
+| Feature                          | AI Model/Technique                  | Objective                                  |
+|-----------------------------------|-------------------------------------|--------------------------------------------|
+| AI Credit Score Prediction        | XGBoost + SHAP                      | Predict creditworthiness with explainability |
+| Financial Literacy Recommender     | SVD Collaborative Filtering        | Recommend personalized learning programs  |
+| Mentorship Matching System         | K-Nearest Neighbors (KNN)           | Connect women entrepreneurs with mentors  |
+| Market Linkage & Procurement Hub   | Collaborative Filtering Model      | Link MSMEs to supply chains and e-commerce |
+| Fraud Detection (Future Scope)     | AI-based Anomaly Detection          | Identify high-risk applications            |
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## ⚡️ **Technical Architecture**
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 📊 **Data Flow and Model Workflow**
 
-Follow these steps:
+1. **Data Collection:**  
+   - User data, including financial history, entrepreneurial profile, and business needs.  
+   - Alternative data such as utility payments, digital transactions, and e-commerce activity.  
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. **Data Preprocessing:**  
+   - Cleaning, normalization, and feature engineering to prepare data for model ingestion.  
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. **Model Training:**  
+   - XGBoost for credit scoring, SVD for financial literacy recommendations, and KNN for mentor matching.  
 
-# Step 3: Install the necessary dependencies.
-npm i
+4. **Model Deployment:**  
+   - Flask APIs to serve AI models with integration into the frontend platform.  
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+---
+
+
+## 🚀 **How to Run the Project Locally**
+
+### 📦 **Prerequisites**
+
+1. Python 3.11+  
+2. Flask  
+3. Scikit-Learn, XGBoost, Surprise, and other dependencies  
+4. Chart.js/Matplotlib for visualization  
+
+---
+
+### 🔧 **Step 1: Clone the Repository**
+
+```bash
+git clone https://github.com/your-github-username/nariniti.git
+cd nariniti
+```
+### 🖥️ Step 2: Set Up Virtual Environment
+```
+# Create virtual environment
+
+python3 -m venv venv
+
+# Activate virtual environment
+# Windows
+
+venv\Scripts\activate
+
+# macOS/Linux
+
+source venv/bin/activate
+```
+### ⚙️ Step 3: Run Backend API
+
+```
+# Navigate to backend directory
+cd backend
+
+# Run Flask API
+python app.py
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-**Edit a file directly in GitHub**
+### 🎨 Step 4: Run Frontend Application
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+# Navigate to frontend directory
+cd ../frontend
 
-**Use GitHub Codespaces**
+# Run the application
+npm install
+npm start
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/ca8cc97b-a795-4ff1-aa7b-47174c3bd54d) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
